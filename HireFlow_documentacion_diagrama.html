@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HireFlow · Documentación del sistema</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#ffffff;
+      --side:#fafafa;
+      --surface:#ffffff;
+      --soft:#f5f5f5;
+      --line:#e7e7e7;
+      --text:#18181b;
+      --muted:#71717a;
+      --accent:#5b4ee5;
+      --accent-soft:#f0efff;
+      --success:#19734d;
+      --warning:#9a6700;
+      --danger:#b42318;
+      --radius:14px;
+      --mono:"JetBrains Mono", monospace;
+      --sans:"Inter", system-ui, sans-serif;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:var(--sans);
+      background:var(--bg);
+      color:var(--text);
+      line-height:1.65;
+      font-size:15px;
+    }
+
+    button,input,select{font:inherit}
+
+    .sidebar{
+      position:fixed;
+      inset:0 auto 0 0;
+      width:260px;
+      border-right:1px solid var(--line);
+      background:var(--side);
+      padding:24px 18px;
+      overflow:auto;
+      z-index:30;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:11px;
+      padding:4px 8px 24px;
+    }
+
+    .brand-logo{
+      width:36px;
+      height:36px;
+      display:grid;
+      place-items:center;
+      border-radius:11px;
+      background:var(--accent);
+      color:#fff;
+      font-weight:700;
+    }
+
+    .brand strong{display:block;font-size:15px}
+    .brand small{display:block;color:var(--muted);font-size:11px;margin-top:1px}
+
+    .nav-section{margin:12px 0 24px}
+    .nav-label{
+      padding:0 10px 7px;
+      color:#a1a1aa;
+      font-size:10px;
+      text-transform:uppercase;
+      letter-spacing:.11em;
+      font-weight:700;
+    }
+
+    .nav-btn{
+      width:100%;
+      border:none;
+      background:transparent;
+      color:#52525b;
+      text-align:left;
+      padding:9px 10px;
+      border-radius:9px;
+      cursor:pointer;
+      margin:2px 0;
+    }
+
+    .nav-btn:hover{background:#f0f0f0;color:var(--text)}
+    .nav-btn.active{background:var(--accent-soft);color:var(--accent);font-weight:600}
+
+    .subnav{
+      margin:5px 0 0 12px;
+      padding-left:10px;
+      border-left:1px solid var(--line);
+      display:none;
+    }
+
+    .subnav.visible{display:block}
+    .subnav .nav-btn{font-size:13px;padding:6px 9px}
+
+    .sidebar-footer{
+      margin-top:30px;
+      border-top:1px solid var(--line);
+      padding:16px 10px 0;
+      color:#a1a1aa;
+      font-size:11px;
+    }
+
+    .main{margin-left:260px;min-height:100vh}
+    .page{
+      display:none;
+      max-width:980px;
+      margin:0 auto;
+      padding:54px 48px 100px;
+    }
+    .page.visible{display:block}
+
+    .crumb{
+      color:#a1a1aa;
+      font-size:12px;
+      font-family:var(--mono);
+      margin-bottom:16px;
+    }
+
+    h1,h2,h3{letter-spacing:-.025em}
+    h1{font-size:38px;line-height:1.15;margin:0 0 16px}
+    h2{font-size:24px;margin:44px 0 15px}
+    h3{font-size:17px;margin:25px 0 10px}
+    p{color:#52525b;margin:0 0 14px}
+
+    .lead{
+      font-size:18px;
+      line-height:1.65;
+      max-width:720px;
+      color:#52525b;
+      margin-bottom:28px;
+    }
+
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:7px;
+      padding:6px 10px;
+      border-radius:999px;
+      background:var(--accent-soft);
+      color:var(--accent);
+      font-size:12px;
+      font-weight:600;
+      margin-bottom:18px;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:14px;
+      margin:20px 0;
+    }
+
+    .card{
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      background:var(--surface);
+      padding:20px;
+    }
+
+    .card h3{margin:0 0 7px;font-size:16px}
+    .card p{margin:0;font-size:13.5px}
+
+    .callout{
+      border:1px solid #d9d6ff;
+      background:#f8f7ff;
+      color:#4037a3;
+      border-radius:12px;
+      padding:15px 17px;
+      margin:20px 0;
+      font-size:14px;
+    }
+
+    .table-wrap{overflow:auto}
+    table{
+      width:100%;
+      border-collapse:collapse;
+      margin:15px 0 24px;
+      font-size:14px;
+    }
+    th{
+      text-align:left;
+      color:#a1a1aa;
+      font-size:11px;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      border-bottom:1px solid var(--line);
+      padding:10px 12px;
+    }
+    td{
+      padding:12px;
+      border-bottom:1px solid var(--line);
+      color:#52525b;
+      vertical-align:top;
+    }
+    td:first-child{color:var(--text);font-weight:600}
+
+    .diagram-card{
+      border:1px solid var(--line);
+      border-radius:18px;
+      padding:20px;
+      background:#fcfcfc;
+      margin:24px 0 18px;
+      overflow:auto;
+    }
+
+    .diagram-caption{
+      text-align:center;
+      color:#a1a1aa;
+      font-family:var(--mono);
+      font-size:11px;
+      margin-top:8px;
+    }
+
+    .usecase-node{cursor:pointer}
+    .usecase-node ellipse{
+      transition:.18s ease;
+    }
+    .usecase-node:hover ellipse,
+    .usecase-node.active ellipse{
+      stroke:var(--accent);
+      stroke-width:2;
+      fill:var(--accent-soft);
+    }
+
+    .case-toolbar{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      justify-content:space-between;
+      margin:26px 0 14px;
+      flex-wrap:wrap;
+    }
+
+    .case-select{
+      min-width:280px;
+      border:1px solid var(--line);
+      border-radius:10px;
+      padding:10px 12px;
+      background:#fff;
+      color:var(--text);
+    }
+
+    .nav-actions{display:flex;gap:8px}
+    .ghost-btn{
+      border:1px solid var(--line);
+      background:#fff;
+      padding:9px 12px;
+      border-radius:10px;
+      cursor:pointer;
+      color:#52525b;
+    }
+    .ghost-btn:hover{border-color:#cfcfcf;background:#fafafa}
+
+    .case-view{
+      border:1px solid var(--line);
+      border-radius:16px;
+      background:#fff;
+      overflow:hidden;
+    }
+
+    .case-head{
+      padding:22px 24px;
+      border-bottom:1px solid var(--line);
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:16px;
+      background:#fcfcfc;
+    }
+
+    .case-code{
+      font-family:var(--mono);
+      font-size:12px;
+      color:var(--accent);
+      background:var(--accent-soft);
+      padding:4px 8px;
+      border-radius:7px;
+      display:inline-block;
+      margin-bottom:8px;
+    }
+
+    .case-head h2{font-size:22px;margin:0}
+    .case-actor{
+      color:#a1a1aa;
+      font-size:12px;
+      white-space:nowrap;
+      margin-top:4px;
+    }
+
+    .case-body{padding:24px}
+
+    .spec-grid{
+      display:grid;
+      grid-template-columns:180px 1fr;
+      border:1px solid var(--line);
+      border-radius:12px;
+      overflow:hidden;
+      margin-bottom:24px;
+    }
+
+    .spec-grid div{
+      padding:10px 13px;
+      border-bottom:1px solid var(--line);
+    }
+    .spec-grid div:nth-last-child(-n+2){border-bottom:none}
+    .spec-key{
+      background:#fafafa;
+      font-size:12px;
+      font-weight:600;
+      color:#3f3f46;
+    }
+    .spec-value{color:#52525b;font-size:13.5px}
+
+    .flow{
+      list-style:none;
+      padding:0;
+      margin:12px 0 0;
+      counter-reset:step;
+    }
+    .flow li{
+      position:relative;
+      padding:0 0 15px 34px;
+      color:#52525b;
+      font-size:14px;
+    }
+    .flow li::before{
+      counter-increment:step;
+      content:counter(step);
+      position:absolute;
+      left:0;
+      top:0;
+      width:22px;
+      height:22px;
+      display:grid;
+      place-items:center;
+      background:var(--accent-soft);
+      color:var(--accent);
+      border-radius:50%;
+      font:600 11px var(--mono);
+    }
+    .flow li::after{
+      content:"";
+      position:absolute;
+      left:10px;
+      top:24px;
+      bottom:2px;
+      width:1px;
+      background:var(--line);
+    }
+    .flow li:last-child::after{display:none}
+
+    .alt{
+      border-left:3px solid #d6b562;
+      background:#fffaf0;
+      padding:11px 13px;
+      border-radius:0 9px 9px 0;
+      margin:9px 0;
+      color:#66572f;
+      font-size:13.5px;
+    }
+
+    .alt.error{
+      border-left-color:#e09a95;
+      background:#fff5f4;
+      color:#7c3732;
+    }
+
+    .mini-title{
+      color:#a1a1aa;
+      font-size:11px;
+      text-transform:uppercase;
+      letter-spacing:.09em;
+      font-weight:700;
+      margin-top:22px;
+    }
+
+    .architecture{
+      border:1px solid var(--line);
+      border-radius:18px;
+      padding:26px;
+      background:#fcfcfc;
+      margin:22px 0;
+    }
+
+    .layers{
+      display:grid;
+      gap:10px;
+      max-width:620px;
+      margin:0 auto;
+    }
+
+    .layer{
+      border:1px solid var(--line);
+      background:#fff;
+      border-radius:12px;
+      padding:16px 18px;
+    }
+
+    .layer strong{display:block;margin-bottom:4px}
+    .layer span{font-size:13px;color:#71717a}
+
+    code{
+      font-family:var(--mono);
+      font-size:12px;
+      background:#f4f4f5;
+      padding:2px 6px;
+      border-radius:6px;
+      color:#3f3f46;
+    }
+
+    .menu{
+      display:none;
+      position:fixed;
+      top:14px;
+      left:14px;
+      z-index:40;
+      border:1px solid var(--line);
+      background:#fff;
+      width:42px;
+      height:42px;
+      border-radius:11px;
+      cursor:pointer;
+    }
+
+    @media(max-width:900px){
+      .sidebar{transform:translateX(-100%);transition:.2s ease}
+      .sidebar.open{transform:translateX(0);box-shadow:0 0 40px rgba(0,0,0,.16)}
+      .main{margin-left:0}
+      .menu{display:block}
+      .page{padding:76px 22px 80px}
+      .grid{grid-template-columns:1fr}
+      .spec-grid{grid-template-columns:1fr}
+      .spec-key{padding-bottom:4px !important;border-bottom:none !important}
+      .case-head{flex-direction:column}
+      .case-select{min-width:100%}
+      h1{font-size:30px}
+    }
+  </style>
+</head>
+<body>
+
+<button class="menu" onclick="document.querySelector('.sidebar').classList.toggle('open')" aria-label="Abrir menú">☰</button>
+
+<aside class="sidebar">
+  <div class="brand">
+    <div class="brand-logo">H</div>
+    <div>
+      <strong>HireFlow</strong>
+      <small>Documentación · v1.0</small>
+    </div>
+  </div>
+
+  <div class="nav-section">
+    <div class="nav-label">Proyecto</div>
+    <button class="nav-btn active" data-page="intro" onclick="showPage('intro',this)">Introducción</button>
+    <button class="nav-btn" data-page="casos" onclick="showPage('casos',this)">Casos de uso</button>
+    <div class="subnav" id="caseSubnav"></div>
+  </div>
+
+  <div class="nav-section">
+    <div class="nav-label">Diseño</div>
+    <button class="nav-btn" data-page="arquitectura" onclick="showPage('arquitectura',this)">Arquitectura</button>
+    <button class="nav-btn" data-page="solid" onclick="showPage('solid',this)">Principios SOLID</button>
+  </div>
+
+  <div class="sidebar-footer">
+    Proyecto académico<br>
+    Diseño y arquitectura de software
+  </div>
+</aside>
+
+<main class="main">
+
+  <section class="page visible" id="page-intro">
+    <div class="crumb">Docs / Introducción</div>
+    <span class="badge">Sistema académico de referencia</span>
+    <h1>HireFlow — Reclutamiento y contratación</h1>
+    <p class="lead">Sistema web para gestionar vacantes, postulaciones, entrevistas, evaluaciones, ofertas laborales y contratación de empleados.</p>
+
+    <div class="callout">
+      El alcance se concentra en el proceso de reclutamiento. Nómina, asistencia y administración posterior del empleado quedan fuera de esta versión.
+    </div>
+
+    <h2>Problema</h2>
+    <p>En muchas empresas el proceso de contratación se maneja mediante correos, hojas de cálculo y documentos dispersos. Esto dificulta conocer el estado real de cada candidato, coordinar entrevistas y mantener evidencia de las evaluaciones realizadas.</p>
+
+    <h2>Objetivo</h2>
+    <p>Centralizar el proceso desde la publicación de una vacante hasta la aceptación de la oferta laboral, manteniendo trazabilidad de decisiones, evaluaciones y comunicaciones.</p>
+
+    <h2>Alcance funcional</h2>
+    <div class="grid">
+      <div class="card"><h3>Vacantes</h3><p>Creación, publicación, actualización y cierre de posiciones disponibles.</p></div>
+      <div class="card"><h3>Postulaciones</h3><p>Registro de candidatos y seguimiento de su estado dentro del proceso.</p></div>
+      <div class="card"><h3>Entrevistas</h3><p>Programación de entrevistas de recursos humanos, técnicas o con el jefe de área.</p></div>
+      <div class="card"><h3>Evaluaciones</h3><p>Registro de criterios, calificaciones, observaciones y decisión final.</p></div>
+      <div class="card"><h3>Oferta laboral</h3><p>Generación de una oferta para el candidato seleccionado y seguimiento de su respuesta.</p></div>
+      <div class="card"><h3>Notificaciones</h3><p>Confirmación obligatoria al programar entrevistas y recordatorios opcionales antes de la reunión.</p></div>
+    </div>
+
+    <h2>Actores</h2>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Actor</th><th>Responsabilidad</th></tr></thead>
+        <tbody>
+          <tr><td>Candidato</td><td>Consulta vacantes, registra su postulación y responde a una oferta laboral.</td></tr>
+          <tr><td>Reclutador</td><td>Gestiona vacantes, revisa postulaciones y coordina entrevistas.</td></tr>
+          <tr><td>Jefe de área</td><td>Evalúa candidatos y participa en la selección.</td></tr>
+          <tr><td>Servicio de notificaciones</td><td>Entrega correos o mensajes relacionados con el proceso.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="page" id="page-casos">
+    <div class="crumb">Docs / Análisis / Casos de uso</div>
+    <h1>Modelo de casos de uso</h1>
+    <p class="lead">El diagrama muestra únicamente los procesos principales. Selecciona un caso para consultar su especificación.</p>
+
+    <div class="diagram-card">
+      <svg viewBox="0 0 940 620" width="100%" role="img" aria-label="Diagrama de casos de uso de HireFlow">
+        <defs>
+          <marker id="uml-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+            <path d="M1 1 L8 5 L1 9" fill="none" stroke="#a1a1aa" stroke-width="1.2"/>
+          </marker>
+        </defs>
+        <!-- Límite del sistema -->
+        <rect x="245" y="30" width="530" height="550" rx="14" fill="#ffffff" stroke="#d4d4d8" stroke-width="1.4"/>
+        <text x="510" y="60" text-anchor="middle" font-size="15" font-weight="700" fill="#18181b">HireFlow</text>
+
+        <!-- Asociaciones del candidato -->
+        <g stroke="#a1a1aa" stroke-width="1.35" fill="none">
+          <line x1="145" y1="170" x2="340" y2="125"/>
+          <line x1="145" y1="180" x2="340" y2="195"/>
+        </g>
+
+        <!-- Asociaciones del reclutador -->
+        <g stroke="#a1a1aa" stroke-width="1.35" fill="none">
+          <line x1="145" y1="405" x2="340" y2="265"/>
+          <line x1="145" y1="415" x2="340" y2="335"/>
+          <line x1="145" y1="425" x2="340" y2="405"/>
+          <line x1="145" y1="435" x2="340" y2="475"/>
+          <line x1="145" y1="445" x2="340" y2="545"/>
+        </g>
+
+        <!-- Asociaciones del jefe de área -->
+        <g stroke="#a1a1aa" stroke-width="1.35" fill="none">
+          <line x1="795" y1="210" x2="600" y2="335"/>
+          <line x1="795" y1="220" x2="600" y2="405"/>
+          <line x1="795" y1="230" x2="600" y2="475"/>
+        </g>
+
+        <!-- Relación include desde programar entrevista -->
+        <path d="M600 405 C620 405, 625 405, 635 405" fill="none" stroke="#a1a1aa" stroke-width="1.25" stroke-dasharray="5 5" marker-end="url(#uml-arrow)"/>
+        <text x="606" y="390" fill="#71717a" font-size="11" font-family="JetBrains Mono">«include»</text>
+
+        <!-- Casos de uso -->
+        <g class="usecase-node" data-case="cu01" onclick="openCase('cu01')">
+          <ellipse cx="470" cy="125" rx="130" ry="27" fill="#ffffff" stroke="#c4c4cc" stroke-width="1.3"/>
+          <text x="470" y="130" text-anchor="middle" font-size="13" fill="#27272a">Consultar vacantes</text>
+        </g>
+
+        <g class="usecase-node" data-case="cu02" onclick="openCase('cu02')">
+          <ellipse cx="470" cy="195" rx="130" ry="27" fill="#ffffff" stroke="#c4c4cc" stroke-width="1.3"/>
+          <text x="470" y="200" text-anchor="middle" font-size="13" fill="#27272a">Postularse a vacante</text>
+        </g>
+
+        <g class="usecase-node" data-case="cu03" onclick="openCase('cu03')">
+          <ellipse cx="470" cy="265" rx="130" ry="27" fill="#ffffff" stroke="#c4c4cc" stroke-width="1.3"/>
+          <text x="470" y="270" text-anchor="middle" font-size="13" fill="#27272a">Gestionar vacantes</text>
+        </g>
+
+        <g class="usecase-node" data-case="cu04" onclick="openCase('cu04')">
+          <ellipse cx="470" cy="335" rx="130" ry="27" fill="#ffffff" stroke="#c4c4cc" stroke-width="1.3"/>
+          <text x="470" y="340" text-anchor="middle" font-size="13" fill="#27272a">Revisar postulaciones</text>
+        </g>
+
+        <g class="usecase-node" data-case="cu05" onclick="openCase('cu05')">
+          <ellipse cx="470" cy="405" rx="130" ry="27" fill="#ffffff" stroke="#c4c4cc" stroke-width="1.3"/>
+          <text x="470" y="410" text-anchor="middle" font-size="13" fill="#27272a">Programar entrevista</text>
+        </g>
+
+        <g>
+          <ellipse cx="695" cy="405" rx="60" ry="24" fill="#ffffff" stroke="#c4c4cc" stroke-width="1.3"/>
+          <text x="695" y="401" text-anchor="middle" font-size="11.5" fill="#27272a">Notificar</text>
+          <text x="695" y="416" text-anchor="middle" font-size="11.5" fill="#27272a">entrevista</text>
+        </g>
+
+        <g class="usecase-node" data-case="cu06" onclick="openCase('cu06')">
+          <ellipse cx="470" cy="475" rx="130" ry="27" fill="#ffffff" stroke="#c4c4cc" stroke-width="1.3"/>
+          <text x="470" y="480" text-anchor="middle" font-size="13" fill="#27272a">Evaluar candidato</text>
+        </g>
+
+        <g class="usecase-node" data-case="cu07" onclick="openCase('cu07')">
+          <ellipse cx="470" cy="545" rx="130" ry="27" fill="#ffffff" stroke="#c4c4cc" stroke-width="1.3"/>
+          <text x="470" y="550" text-anchor="middle" font-size="13" fill="#27272a">Formalizar contratación</text>
+        </g>
+
+        <!-- Actor candidato -->
+        <g>
+          <circle cx="110" cy="115" r="14" fill="none" stroke="#27272a" stroke-width="1.6"/>
+          <line x1="110" y1="129" x2="110" y2="171" stroke="#27272a" stroke-width="1.6"/>
+          <line x1="88" y1="143" x2="132" y2="143" stroke="#27272a" stroke-width="1.6"/>
+          <line x1="110" y1="171" x2="91" y2="201" stroke="#27272a" stroke-width="1.6"/>
+          <line x1="110" y1="171" x2="129" y2="201" stroke="#27272a" stroke-width="1.6"/>
+          <text x="110" y="228" text-anchor="middle" font-size="13" font-weight="600" fill="#18181b">Candidato</text>
+        </g>
+
+        <!-- Actor reclutador -->
+        <g>
+          <circle cx="110" cy="350" r="14" fill="none" stroke="#27272a" stroke-width="1.6"/>
+          <line x1="110" y1="364" x2="110" y2="406" stroke="#27272a" stroke-width="1.6"/>
+          <line x1="88" y1="378" x2="132" y2="378" stroke="#27272a" stroke-width="1.6"/>
+          <line x1="110" y1="406" x2="91" y2="436" stroke="#27272a" stroke-width="1.6"/>
+          <line x1="110" y1="406" x2="129" y2="436" stroke="#27272a" stroke-width="1.6"/>
+          <text x="110" y="463" text-anchor="middle" font-size="13" font-weight="600" fill="#18181b">Reclutador</text>
+        </g>
+
+        <!-- Actor jefe de área -->
+        <g>
+          <circle cx="830" cy="155" r="14" fill="none" stroke="#27272a" stroke-width="1.6"/>
+          <line x1="830" y1="169" x2="830" y2="211" stroke="#27272a" stroke-width="1.6"/>
+          <line x1="808" y1="183" x2="852" y2="183" stroke="#27272a" stroke-width="1.6"/>
+          <line x1="830" y1="211" x2="811" y2="241" stroke="#27272a" stroke-width="1.6"/>
+          <line x1="830" y1="211" x2="849" y2="241" stroke="#27272a" stroke-width="1.6"/>
+          <text x="830" y="268" text-anchor="middle" font-size="13" font-weight="600" fill="#18181b">Jefe de área</text>
+        </g>
+
+        <!-- Sistema externo -->
+        <line x1="830" y1="475" x2="735" y2="423" stroke="#a1a1aa" stroke-width="1.35"/>
+        <g>
+          <rect x="745" y="475" width="170" height="62" rx="10" fill="#ffffff" stroke="#c4c4cc" stroke-width="1.3"/>
+          <text x="830" y="501" text-anchor="middle" font-size="12.5" font-weight="600" fill="#18181b">Servicio de</text>
+          <text x="830" y="520" text-anchor="middle" font-size="12.5" font-weight="600" fill="#18181b">notificaciones</text>
+        </g>
+      </svg>
+      <div class="diagram-caption">Diagrama general de casos de uso · selecciona un óvalo para ver su detalle</div>
+    </div>
+
+
+
+    <div class="case-toolbar">
+      <select id="caseSelect" class="case-select" onchange="openCase(this.value)"></select>
+      <div class="nav-actions">
+        <button class="ghost-btn" onclick="previousCase()">← Anterior</button>
+        <button class="ghost-btn" onclick="nextCase()">Siguiente →</button>
+      </div>
+    </div>
+
+    <div id="caseContainer"></div>
+  </section>
+
+  <section class="page" id="page-arquitectura">
+    <div class="crumb">Docs / Diseño / Arquitectura</div>
+    <h1>Arquitectura propuesta</h1>
+    <p class="lead">Monolito modular con arquitectura hexagonal para separar el dominio de las tecnologías externas.</p>
+
+    <div class="architecture">
+      <div class="layers">
+        <div class="layer"><strong>Presentación</strong><span>Controladores REST, DTO y validación de entrada.</span></div>
+        <div class="layer"><strong>Aplicación</strong><span>Casos de uso como <code>PublicarVacante</code>, <code>ProgramarEntrevista</code> y <code>FormalizarContratacion</code>.</span></div>
+        <div class="layer"><strong>Dominio</strong><span>Entidades, reglas, estados, políticas y eventos de negocio.</span></div>
+        <div class="layer"><strong>Infraestructura</strong><span>Base de datos, correo, almacenamiento de documentos y adaptadores externos.</span></div>
+      </div>
+    </div>
+
+    <h2>Módulos</h2>
+    <div class="grid">
+      <div class="card"><h3>Vacantes</h3><p>Publicación, requisitos, plazas y cierre.</p></div>
+      <div class="card"><h3>Candidatos</h3><p>Información personal, experiencia y documentos.</p></div>
+      <div class="card"><h3>Selección</h3><p>Postulaciones, estados, filtros y decisiones.</p></div>
+      <div class="card"><h3>Entrevistas</h3><p>Agenda, tipos, participantes y resultados.</p></div>
+      <div class="card"><h3>Contratación</h3><p>Oferta laboral, aceptación y cierre del proceso.</p></div>
+      <div class="card"><h3>Notificaciones</h3><p>Correos, recordatorios y comunicación de resultados.</p></div>
+    </div>
+  </section>
+
+  <section class="page" id="page-solid">
+    <div class="crumb">Docs / Diseño / SOLID</div>
+    <h1>Aplicación de SOLID</h1>
+    <p class="lead">Los principios se aplican sobre responsabilidades reales del proceso de selección.</p>
+
+    <div class="grid">
+      <div class="card"><h3>SRP</h3><p><code>VacanteService</code>, <code>EntrevistaService</code> y <code>OfertaService</code> tienen responsabilidades diferentes.</p></div>
+      <div class="card"><h3>OCP</h3><p>Nuevos tipos de evaluación se agregan mediante estrategias sin modificar el flujo principal.</p></div>
+      <div class="card"><h3>LSP</h3><p>Las implementaciones de evaluación y notificación deben poder sustituirse sin alterar el comportamiento esperado.</p></div>
+      <div class="card"><h3>ISP</h3><p>Se separan interfaces para gestionar vacantes, evaluar candidatos y enviar notificaciones.</p></div>
+      <div class="card"><h3>DIP</h3><p>Los casos de uso dependen de puertos como <code>CandidatoRepository</code> y <code>NotificationPort</code>.</p></div>
+      <div class="card"><h3>Patrones</h3><p>State para postulaciones, Strategy para evaluaciones y Observer para notificaciones.</p></div>
+    </div>
+
+    <h2>Estados de una postulación</h2>
+    <div class="callout">
+      RECIBIDA → EN_REVISIÓN → PRESELECCIONADA → ENTREVISTA_PROGRAMADA → EVALUADA → SELECCIONADA → CONTRATADA
+    </div>
+  </section>
+</main>
+
+<script>
+const cases = [
+  {
+    id:"cu01",
+    code:"CU-01",
+    title:"Consultar vacantes",
+    actor:"Candidato",
+    description:"Permite consultar las vacantes abiertas y revisar sus requisitos, ubicación y modalidad.",
+    pre:"Existen vacantes publicadas.",
+    post:"El candidato obtiene el detalle de la vacante seleccionada.",
+    flow:[
+      "El candidato accede al portal de vacantes.",
+      "El sistema muestra las vacantes abiertas.",
+      "El candidato aplica filtros por área, modalidad o ubicación.",
+      "El sistema actualiza los resultados.",
+      "El candidato selecciona una vacante.",
+      "El sistema muestra requisitos y condiciones."
+    ],
+    alternatives:["No existen resultados para los filtros seleccionados: el sistema permite limpiar los filtros."],
+    errors:["La vacante fue cerrada mientras se consultaba: el sistema informa que ya no admite postulaciones."]
+  },
+  {
+    id:"cu02",
+    code:"CU-02",
+    title:"Postularse a vacante",
+    actor:"Candidato",
+    description:"Permite enviar la información y documentos requeridos para participar en una vacante.",
+    pre:"La vacante está abierta y el candidato no se ha postulado anteriormente.",
+    post:"La postulación queda registrada en estado RECIBIDA.",
+    flow:[
+      "El candidato selecciona Postularme.",
+      "El sistema solicita sus datos y hoja de vida.",
+      "El candidato completa la información requerida.",
+      "El candidato confirma la postulación.",
+      "El sistema valida que no exista una postulación previa.",
+      "El sistema registra la postulación.",
+      "El sistema envía una confirmación."
+    ],
+    alternatives:["El candidato ya tiene una cuenta: el sistema recupera sus datos registrados."],
+    errors:["Faltan datos obligatorios o el archivo adjunto no es válido: el sistema señala los campos pendientes."]
+  },
+  {
+    id:"cu03",
+    code:"CU-03",
+    title:"Gestionar vacantes",
+    actor:"Reclutador",
+    description:"Permite crear, editar, publicar y cerrar vacantes de empleo.",
+    pre:"El reclutador tiene permisos de gestión.",
+    post:"La vacante queda guardada con el estado correspondiente.",
+    flow:[
+      "El reclutador selecciona Nueva vacante.",
+      "El sistema muestra el formulario.",
+      "El reclutador define cargo, requisitos, número de plazas y fecha límite.",
+      "El reclutador guarda la vacante.",
+      "El sistema valida la información.",
+      "El sistema publica la vacante."
+    ],
+    alternatives:["El reclutador guarda la vacante como borrador para completarla posteriormente."],
+    errors:["La fecha límite es anterior a la fecha actual o no existen plazas disponibles."]
+  },
+  {
+    id:"cu04",
+    code:"CU-04",
+    title:"Revisar postulaciones",
+    actor:"Reclutador",
+    description:"Permite analizar candidatos y decidir cuáles continúan en el proceso.",
+    pre:"La vacante tiene postulaciones recibidas.",
+    post:"Cada postulación revisada queda preseleccionada o rechazada.",
+    flow:[
+      "El reclutador abre una vacante.",
+      "El sistema muestra las postulaciones recibidas.",
+      "El reclutador revisa el perfil del candidato.",
+      "El reclutador registra observaciones.",
+      "El reclutador selecciona Preseleccionar o Rechazar.",
+      "El sistema actualiza el estado."
+    ],
+    alternatives:["El reclutador puede dejar la postulación EN_REVISIÓN para una segunda validación."],
+    errors:["La vacante ya fue cerrada: no se permiten nuevas decisiones sin reabrirla."]
+  },
+  {
+    id:"cu05",
+    code:"CU-05",
+    title:"Programar entrevista",
+    actor:"Reclutador",
+    description:"Permite coordinar una entrevista con un candidato preseleccionado, notificar su confirmación y programar recordatorios previos.",
+    pre:"La postulación se encuentra PRESELECCIONADA.",
+    post:"La entrevista queda programada, los participantes reciben la confirmación y, si corresponde, se programa un recordatorio.",
+    flow:[
+      "El reclutador selecciona Programar entrevista.",
+      "El sistema solicita fecha, hora, modalidad, ubicación o enlace y participantes.",
+      "El reclutador completa la información.",
+      "El sistema valida la disponibilidad de los participantes.",
+      "El sistema registra la entrevista.",
+      "El sistema actualiza la postulación a ENTREVISTA_PROGRAMADA.",
+      "El sistema notifica obligatoriamente al candidato, al entrevistador y al reclutador.",
+      "El sistema programa el recordatorio configurado para antes de la entrevista."
+    ],
+    alternatives:[
+      "La entrevista puede ser de recursos humanos, técnica o con el jefe de área.",
+      "El reclutador puede desactivar el recordatorio; la notificación de confirmación se envía de todos modos.",
+      "La entrevista virtual incluye el enlace de conexión; la presencial incluye la dirección o sala."
+    ],
+    errors:[
+      "Existe conflicto de horario para uno de los participantes.",
+      "El servicio de notificaciones no está disponible: la entrevista se registra, la notificación queda PENDIENTE y el sistema programa un reintento."
+    ]
+  },
+  {
+    id:"cu06",
+    code:"CU-06",
+    title:"Evaluar candidato",
+    actor:"Reclutador / Jefe de área",
+    description:"Permite registrar la calificación, observaciones y recomendación de un candidato.",
+    pre:"La entrevista fue realizada.",
+    post:"La evaluación queda registrada y la postulación pasa a EVALUADA.",
+    flow:[
+      "El evaluador abre la entrevista realizada.",
+      "El sistema muestra los criterios de evaluación.",
+      "El evaluador asigna calificaciones.",
+      "El evaluador registra observaciones.",
+      "El evaluador selecciona una recomendación.",
+      "El sistema calcula el resultado.",
+      "El sistema guarda la evaluación."
+    ],
+    alternatives:["Según el tipo de entrevista, el sistema utiliza una estrategia de evaluación diferente."],
+    errors:["No se completaron todos los criterios obligatorios."]
+  },
+  {
+    id:"cu07",
+    code:"CU-07",
+    title:"Formalizar contratación",
+    actor:"Reclutador",
+    description:"Permite seleccionar al candidato, generar la oferta laboral y registrar su aceptación.",
+    pre:"El candidato fue evaluado y seleccionado.",
+    post:"La postulación queda CONTRATADA y la plaza ocupada.",
+    flow:[
+      "El reclutador selecciona al candidato.",
+      "El sistema solicita salario, cargo, modalidad y fecha de ingreso.",
+      "El reclutador genera la oferta laboral.",
+      "El sistema envía la oferta al candidato.",
+      "El candidato acepta la oferta.",
+      "El sistema registra la contratación.",
+      "El sistema reduce las plazas disponibles.",
+      "Si no quedan plazas, el sistema cierra la vacante."
+    ],
+    alternatives:["El candidato solicita una modificación de la oferta antes de aceptarla."],
+    errors:["El candidato rechaza la oferta: la postulación queda RECHAZADA y la vacante continúa abierta."]
+  }
+];
+
+let currentCaseIndex = 0;
+
+function buildCase(caseData){
+  return `
+    <article class="case-view">
+      <header class="case-head">
+        <div>
+          <span class="case-code">${caseData.code}</span>
+          <h2>${caseData.title}</h2>
+        </div>
+        <span class="case-actor">${caseData.actor}</span>
+      </header>
+      <div class="case-body">
+        <div class="spec-grid">
+          <div class="spec-key">Descripción</div><div class="spec-value">${caseData.description}</div>
+          <div class="spec-key">Actor principal</div><div class="spec-value">${caseData.actor}</div>
+          <div class="spec-key">Precondiciones</div><div class="spec-value">${caseData.pre}</div>
+          <div class="spec-key">Postcondiciones</div><div class="spec-value">${caseData.post}</div>
+        </div>
+
+        <div class="mini-title">Flujo principal</div>
+        <ol class="flow">${caseData.flow.map(step=>`<li>${step}</li>`).join("")}</ol>
+
+        <div class="mini-title">Flujos alternativos</div>
+        ${caseData.alternatives.map((item,i)=>`<div class="alt"><strong>FA-${i+1}</strong> — ${item}</div>`).join("")}
+
+        <div class="mini-title">Flujos de excepción</div>
+        ${caseData.errors.map((item,i)=>`<div class="alt error"><strong>FE-${i+1}</strong> — ${item}</div>`).join("")}
+      </div>
+    </article>`;
+}
+
+function openCase(id){
+  const index = cases.findIndex(c=>c.id===id);
+  if(index < 0) return;
+  currentCaseIndex = index;
+
+  document.getElementById("caseContainer").innerHTML = buildCase(cases[index]);
+  document.getElementById("caseSelect").value = id;
+
+  document.querySelectorAll(".usecase-node").forEach(n=>{
+    n.classList.toggle("active", n.dataset.case===id);
+  });
+
+  document.querySelectorAll("#caseSubnav .nav-btn").forEach(n=>{
+    n.classList.toggle("active", n.dataset.case===id);
+  });
+
+  history.replaceState(null,"","#"+id);
+}
+
+function previousCase(){
+  currentCaseIndex = (currentCaseIndex - 1 + cases.length) % cases.length;
+  openCase(cases[currentCaseIndex].id);
+}
+
+function nextCase(){
+  currentCaseIndex = (currentCaseIndex + 1) % cases.length;
+  openCase(cases[currentCaseIndex].id);
+}
+
+function showPage(id,button){
+  document.querySelectorAll(".page").forEach(page=>page.classList.remove("visible"));
+  document.getElementById("page-"+id).classList.add("visible");
+
+  document.querySelectorAll(".nav-btn[data-page]").forEach(btn=>btn.classList.remove("active"));
+  if(button) button.classList.add("active");
+
+  document.getElementById("caseSubnav").classList.toggle("visible", id==="casos");
+  document.querySelector(".sidebar").classList.remove("open");
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function initialize(){
+  const select = document.getElementById("caseSelect");
+  const subnav = document.getElementById("caseSubnav");
+
+  cases.forEach(c=>{
+    const option = document.createElement("option");
+    option.value = c.id;
+    option.textContent = `${c.code} · ${c.title}`;
+    select.appendChild(option);
+
+    const button = document.createElement("button");
+    button.className = "nav-btn";
+    button.dataset.case = c.id;
+    button.textContent = `${c.code} · ${c.title}`;
+    button.onclick = ()=>{
+      showPage("casos",document.querySelector('[data-page="casos"]'));
+      openCase(c.id);
+    };
+    subnav.appendChild(button);
+  });
+
+  const hashId = location.hash.replace("#","");
+  if(cases.some(c=>c.id===hashId)){
+    showPage("casos",document.querySelector('[data-page="casos"]'));
+    openCase(hashId);
+  }else{
+    openCase(cases[0].id);
+  }
+}
+
+initialize();
+</script>
+</body>
+</html>

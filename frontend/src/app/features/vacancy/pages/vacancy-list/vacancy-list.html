@@ -1,0 +1,9 @@
+<h1>Open vacancies</h1>
+
+<!-- TODO: filter controls (area, workMode, location) -->
+
+<section class="vacancy-list">
+  @for (vacancy of vacancies(); track vacancy.id) {
+    <app-vacancy-card [vacancy]="vacancy" />
+  }
+</section>

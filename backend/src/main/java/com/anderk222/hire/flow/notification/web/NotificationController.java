@@ -1,5 +1,6 @@
 package com.anderk222.hire.flow.notification.web;
 
+import com.anderk222.hire.flow.notification.domain.model.NotificationId;
 import com.anderk222.hire.flow.notification.usecase.GetNotificationUseCase;
 import com.anderk222.hire.flow.notification.usecase.dto.response.NotificationResponse;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +24,6 @@ public class NotificationController {
 
     @GetMapping("/{id}")
     public NotificationResponse getById(@PathVariable Long id) {
-        return getNotificationUseCase.getById(id);
+        return getNotificationUseCase.getById(NotificationId.of(id));
     }
 }

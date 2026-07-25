@@ -2,6 +2,7 @@ package com.anderk222.hire.flow.notification.service;
 
 import com.anderk222.hire.flow.notification.domain.NotificationRepository;
 import com.anderk222.hire.flow.notification.domain.NotificationSender;
+import com.anderk222.hire.flow.notification.domain.model.NotificationId;
 import com.anderk222.hire.flow.notification.usecase.GetNotificationUseCase;
 import com.anderk222.hire.flow.notification.usecase.ScheduleInterviewReminderUseCase;
 import com.anderk222.hire.flow.notification.usecase.SendInterviewConfirmationUseCase;
@@ -34,7 +35,7 @@ public class NotificationService implements SendInterviewConfirmationUseCase, Sc
     }
 
     @Override
-    public NotificationResponse getById(Long id) {
+    public NotificationResponse getById(NotificationId id) {
         // TODO: notificationRepository.findById(id) o lanzar ResourceNotFoundException, mapear a response.
         throw new UnsupportedOperationException("TODO: implement getById use case");
     }

@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class Candidate {
 
-    private Long id;
+    private CandidateId id;
     private String fullName;
     private String email;
     private String phone;

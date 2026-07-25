@@ -2,6 +2,7 @@ package com.anderk222.hire.flow.hiring.persistence;
 
 import com.anderk222.hire.flow.hiring.domain.JobOfferRepository;
 import com.anderk222.hire.flow.hiring.domain.model.JobOffer;
+import com.anderk222.hire.flow.hiring.domain.model.JobOfferId;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -20,7 +21,7 @@ public class JobOfferRepositoryAdapter implements JobOfferRepository {
     }
 
     @Override
-    public Optional<JobOffer> findById(Long id) {
+    public Optional<JobOffer> findById(JobOfferId id) {
         // TODO: jpaRepository.findById(id).map(this::toDomain)
         throw new UnsupportedOperationException("TODO: implement findById");
     }

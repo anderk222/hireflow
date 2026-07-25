@@ -1,5 +1,6 @@
 package com.anderk222.hire.flow.hiring.domain.model;
 
+import com.anderk222.hire.flow.candidacy.domain.model.CandidacyId;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -17,8 +18,8 @@ import java.time.LocalDate;
 @Builder
 public class JobOffer {
 
-    private Long id;
-    private Long candidacyId;
+    private JobOfferId id;
+    private CandidacyId candidacyId;
     private double salary;
     private String position;
     private String workMode;

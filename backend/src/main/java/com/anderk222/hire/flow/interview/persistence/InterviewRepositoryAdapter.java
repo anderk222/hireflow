@@ -2,9 +2,12 @@ package com.anderk222.hire.flow.interview.persistence;
 
 import com.anderk222.hire.flow.interview.domain.InterviewRepository;
 import com.anderk222.hire.flow.interview.domain.model.Interview;
+import com.anderk222.hire.flow.interview.domain.model.InterviewId;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.time.Instant;
+import java.util.List;
 import java.util.Optional;
 
 @Component
@@ -20,8 +23,14 @@ public class InterviewRepositoryAdapter implements InterviewRepository {
     }
 
     @Override
-    public Optional<Interview> findById(Long id) {
+    public Optional<Interview> findById(InterviewId id) {
         // TODO: jpaRepository.findById(id).map(this::toDomain)
         throw new UnsupportedOperationException("TODO: implement findById");
+    }
+
+    @Override
+    public List<Interview> findByParticipantIdsAndScheduledAt(List<Long> participantIds, Instant scheduledAt) {
+        // TODO: query custom (@Query o derivada) en InterviewJpaRepository, mapear a Interview.
+        throw new UnsupportedOperationException("TODO: implement findByParticipantIdsAndScheduledAt");
     }
 }

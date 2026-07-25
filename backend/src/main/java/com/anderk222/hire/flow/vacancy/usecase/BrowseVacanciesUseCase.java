@@ -1,5 +1,6 @@
 package com.anderk222.hire.flow.vacancy.usecase;
 
+import com.anderk222.hire.flow.vacancy.domain.model.VacancyId;
 import com.anderk222.hire.flow.vacancy.usecase.dto.command.VacancyFilterCommand;
 import com.anderk222.hire.flow.vacancy.usecase.dto.response.VacancyResponse;
 import com.anderk222.hire.flow.vacancy.usecase.dto.response.VacancySummaryResponse;
@@ -11,5 +12,5 @@ public interface BrowseVacanciesUseCase {
 
     List<VacancySummaryResponse> listOpen(VacancyFilterCommand filter);
 
-    VacancyResponse getById(Long id);
+    VacancyResponse getById(VacancyId id);
 }

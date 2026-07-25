@@ -1,5 +1,7 @@
 package com.anderk222.hire.flow.interview.domain.event;
 
+import com.anderk222.hire.flow.candidacy.domain.model.CandidacyId;
+import com.anderk222.hire.flow.interview.domain.model.InterviewId;
 import com.anderk222.hire.flow.shared.domain.event.DomainEvent;
 
 import java.time.Instant;
@@ -12,8 +14,8 @@ import java.util.List;
  * casos de uso) y, opcionalmente, agendar un recordatorio.
  */
 public record InterviewScheduledEvent(
-        Long interviewId,
-        Long candidacyId,
+        InterviewId interviewId,
+        CandidacyId candidacyId,
         List<Long> participantIds,
         Instant scheduledAt,
         boolean reminderEnabled,

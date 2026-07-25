@@ -1,5 +1,6 @@
 package com.anderk222.hire.flow.interview.web;
 
+import com.anderk222.hire.flow.interview.domain.model.InterviewId;
 import com.anderk222.hire.flow.interview.usecase.GetInterviewUseCase;
 import com.anderk222.hire.flow.interview.usecase.ScheduleInterviewUseCase;
 import com.anderk222.hire.flow.interview.usecase.dto.command.ScheduleInterviewCommand;
@@ -22,6 +23,6 @@ public class InterviewController {
 
     @GetMapping("/{id}")
     public InterviewResponse getById(@PathVariable Long id) {
-        return getInterviewUseCase.getById(id);
+        return getInterviewUseCase.getById(InterviewId.of(id));
     }
 }

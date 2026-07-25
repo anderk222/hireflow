@@ -1,5 +1,6 @@
 package com.anderk222.hire.flow.evaluation.web;
 
+import com.anderk222.hire.flow.evaluation.domain.model.EvaluationId;
 import com.anderk222.hire.flow.evaluation.usecase.GetEvaluationUseCase;
 import com.anderk222.hire.flow.evaluation.usecase.SubmitEvaluationUseCase;
 import com.anderk222.hire.flow.evaluation.usecase.dto.command.SubmitEvaluationCommand;
@@ -22,6 +23,6 @@ public class EvaluationController {
 
     @GetMapping("/{id}")
     public EvaluationResponse getById(@PathVariable Long id) {
-        return getEvaluationUseCase.getById(id);
+        return getEvaluationUseCase.getById(EvaluationId.of(id));
     }
 }

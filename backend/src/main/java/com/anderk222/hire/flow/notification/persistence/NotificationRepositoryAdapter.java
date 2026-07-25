@@ -2,6 +2,7 @@ package com.anderk222.hire.flow.notification.persistence;
 
 import com.anderk222.hire.flow.notification.domain.NotificationRepository;
 import com.anderk222.hire.flow.notification.domain.model.Notification;
+import com.anderk222.hire.flow.notification.domain.model.NotificationId;
 import com.anderk222.hire.flow.notification.domain.model.NotificationStatus;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -22,7 +23,7 @@ public class NotificationRepositoryAdapter implements NotificationRepository {
     }
 
     @Override
-    public Optional<Notification> findById(Long id) {
+    public Optional<Notification> findById(NotificationId id) {
         // TODO: jpaRepository.findById(id).map(this::toDomain)
         throw new UnsupportedOperationException("TODO: implement findById");
     }

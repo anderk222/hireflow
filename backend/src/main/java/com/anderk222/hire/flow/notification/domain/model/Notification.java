@@ -14,7 +14,7 @@ import java.time.Instant;
 @Builder
 public class Notification {
 
-    private Long id;
+    private NotificationId id;
     private Long recipientId;
     private NotificationType type;
     private String message;

@@ -1,6 +1,7 @@
 package com.anderk222.hire.flow.interview.service;
 
 import com.anderk222.hire.flow.interview.domain.InterviewRepository;
+import com.anderk222.hire.flow.interview.domain.model.InterviewId;
 import com.anderk222.hire.flow.interview.usecase.GetInterviewUseCase;
 import com.anderk222.hire.flow.interview.usecase.ScheduleInterviewUseCase;
 import com.anderk222.hire.flow.interview.usecase.dto.command.ScheduleInterviewCommand;
@@ -18,14 +19,17 @@ public class InterviewService implements ScheduleInterviewUseCase, GetInterviewU
 
     @Override
     public InterviewResponse schedule(ScheduleInterviewCommand command) {
-        // TODO: construir Interview, llamar checkParticipantsAvailability(), guardarla,
-        // mover la postulación relacionada a INTERVIEW_SCHEDULED, luego:
+        // TODO: construir Interview desde el command, luego:
+        // List<Interview> conflicts = interviewRepository.findByParticipantIdsAndScheduledAt(
+        //         interview.getParticipantIds(), interview.getScheduledAt());
+        // interview.checkParticipantsAvailability(conflicts);
+        // guardarla, mover la postulación relacionada a INTERVIEW_SCHEDULED, luego:
         // eventPublisher.publishEvent(new InterviewScheduledEvent(...));
         throw new UnsupportedOperationException("TODO: implement schedule use case");
     }
 
     @Override
-    public InterviewResponse getById(Long id) {
+    public InterviewResponse getById(InterviewId id) {
         // TODO: interviewRepository.findById(id) o lanzar ResourceNotFoundException, mapear a response.
         throw new UnsupportedOperationException("TODO: implement getById use case");
     }

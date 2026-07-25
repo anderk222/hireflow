@@ -1,5 +1,6 @@
 package com.anderk222.hire.flow.hiring.usecase;
 
+import com.anderk222.hire.flow.hiring.domain.model.JobOfferId;
 import com.anderk222.hire.flow.hiring.usecase.dto.command.RespondToJobOfferCommand;
 import com.anderk222.hire.flow.hiring.usecase.dto.response.JobOfferResponse;
 
@@ -12,5 +13,5 @@ import com.anderk222.hire.flow.hiring.usecase.dto.response.JobOfferResponse;
  */
 public interface RespondToJobOfferUseCase {
 
-    JobOfferResponse respond(Long jobOfferId, RespondToJobOfferCommand command);
+    JobOfferResponse respond(JobOfferId jobOfferId, RespondToJobOfferCommand command);
 }

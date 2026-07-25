@@ -1,6 +1,7 @@
 package com.anderk222.hire.flow.evaluation.service;
 
 import com.anderk222.hire.flow.evaluation.domain.EvaluationRepository;
+import com.anderk222.hire.flow.evaluation.domain.model.EvaluationId;
 import com.anderk222.hire.flow.evaluation.domain.strategy.EvaluationStrategy;
 import com.anderk222.hire.flow.evaluation.usecase.GetEvaluationUseCase;
 import com.anderk222.hire.flow.evaluation.usecase.SubmitEvaluationUseCase;
@@ -26,7 +27,7 @@ public class EvaluationService implements SubmitEvaluationUseCase, GetEvaluation
     }
 
     @Override
-    public EvaluationResponse getById(Long id) {
+    public EvaluationResponse getById(EvaluationId id) {
         // TODO: evaluationRepository.findById(id) o lanzar ResourceNotFoundException, mapear a response.
         throw new UnsupportedOperationException("TODO: implement getById use case");
     }

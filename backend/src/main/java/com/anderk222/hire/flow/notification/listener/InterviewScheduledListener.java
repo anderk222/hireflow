@@ -24,13 +24,13 @@ public class InterviewScheduledListener {
     @EventListener
     public void onInterviewScheduled(InterviewScheduledEvent event) {
         sendInterviewConfirmationUseCase.sendConfirmation(new SendInterviewConfirmationCommand(
-                event.interviewId(), event.participantIds(), event.scheduledAt()
+                event.interviewId().value(), event.participantIds(), event.scheduledAt()
         ));
 
         if (event.reminderEnabled()) {
             // TODO: calcular remindAt (p. ej. 24h antes de scheduledAt) en vez de reusar scheduledAt.
             scheduleInterviewReminderUseCase.schedule(new ScheduleInterviewReminderCommand(
-                    event.interviewId(), event.participantIds(), event.scheduledAt()
+                    event.interviewId().value(), event.participantIds(), event.scheduledAt()
             ));
         }
     }

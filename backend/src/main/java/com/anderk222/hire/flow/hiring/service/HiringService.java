@@ -1,6 +1,7 @@
 package com.anderk222.hire.flow.hiring.service;
 
 import com.anderk222.hire.flow.hiring.domain.JobOfferRepository;
+import com.anderk222.hire.flow.hiring.domain.model.JobOfferId;
 import com.anderk222.hire.flow.hiring.usecase.GenerateJobOfferUseCase;
 import com.anderk222.hire.flow.hiring.usecase.GetJobOfferUseCase;
 import com.anderk222.hire.flow.hiring.usecase.RespondToJobOfferUseCase;
@@ -30,14 +31,14 @@ public class HiringService implements GenerateJobOfferUseCase, RespondToJobOffer
     }
 
     @Override
-    public JobOfferResponse respond(Long jobOfferId, RespondToJobOfferCommand command) {
+    public JobOfferResponse respond(JobOfferId jobOfferId, RespondToJobOfferCommand command) {
         // TODO: cargar la oferta, llamar accept()/reject() según command.response(),
         // guardar, y orquestar los efectos en candidacy/vacancy descritos arriba.
         throw new UnsupportedOperationException("TODO: implement respond use case");
     }
 
     @Override
-    public JobOfferResponse getById(Long id) {
+    public JobOfferResponse getById(JobOfferId id) {
         // TODO: jobOfferRepository.findById(id) o lanzar ResourceNotFoundException, mapear a response.
         throw new UnsupportedOperationException("TODO: implement getById use case");
     }

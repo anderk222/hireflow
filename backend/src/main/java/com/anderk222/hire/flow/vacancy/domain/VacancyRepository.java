@@ -1,6 +1,7 @@
 package com.anderk222.hire.flow.vacancy.domain;
 
 import com.anderk222.hire.flow.vacancy.domain.model.Vacancy;
+import com.anderk222.hire.flow.vacancy.domain.model.VacancyId;
 
 import java.util.List;
 import java.util.Optional;
@@ -10,7 +11,7 @@ public interface VacancyRepository {
 
     Vacancy save(Vacancy vacancy);
 
-    Optional<Vacancy> findById(Long id);
+    Optional<Vacancy> findById(VacancyId id);
 
     List<Vacancy> findOpen();
 }

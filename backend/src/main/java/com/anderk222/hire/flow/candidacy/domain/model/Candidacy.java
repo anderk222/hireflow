@@ -1,6 +1,8 @@
 package com.anderk222.hire.flow.candidacy.domain.model;
 
 import com.anderk222.hire.flow.candidacy.domain.state.CandidacyState;
+import com.anderk222.hire.flow.candidate.domain.model.CandidateId;
+import com.anderk222.hire.flow.vacancy.domain.model.VacancyId;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -19,9 +21,9 @@ import java.time.Instant;
 @Builder
 public class Candidacy {
 
-    private Long id;
-    private final Long vacancyId;
-    private final Long candidateId;
+    private CandidacyId id;
+    private final VacancyId vacancyId;
+    private final CandidateId candidateId;
     private CandidacyState state;
     private String recruiterNotes;
     private final Instant appliedAt;

@@ -2,6 +2,7 @@ package com.anderk222.hire.flow.evaluation.persistence;
 
 import com.anderk222.hire.flow.evaluation.domain.EvaluationRepository;
 import com.anderk222.hire.flow.evaluation.domain.model.Evaluation;
+import com.anderk222.hire.flow.evaluation.domain.model.EvaluationId;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -20,7 +21,7 @@ public class EvaluationRepositoryAdapter implements EvaluationRepository {
     }
 
     @Override
-    public Optional<Evaluation> findById(Long id) {
+    public Optional<Evaluation> findById(EvaluationId id) {
         // TODO: jpaRepository.findById(id).map(this::toDomain)
         throw new UnsupportedOperationException("TODO: implement findById");
     }

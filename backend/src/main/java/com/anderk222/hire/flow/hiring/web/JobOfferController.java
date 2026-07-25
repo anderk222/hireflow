@@ -1,5 +1,6 @@
 package com.anderk222.hire.flow.hiring.web;
 
+import com.anderk222.hire.flow.hiring.domain.model.JobOfferId;
 import com.anderk222.hire.flow.hiring.usecase.GenerateJobOfferUseCase;
 import com.anderk222.hire.flow.hiring.usecase.GetJobOfferUseCase;
 import com.anderk222.hire.flow.hiring.usecase.RespondToJobOfferUseCase;
@@ -25,11 +26,11 @@ public class JobOfferController {
 
     @GetMapping("/{id}")
     public JobOfferResponse getById(@PathVariable Long id) {
-        return getJobOfferUseCase.getById(id);
+        return getJobOfferUseCase.getById(JobOfferId.of(id));
     }
 
     @PostMapping("/{id}/response")
     public JobOfferResponse respond(@PathVariable Long id, @RequestBody RespondToJobOfferCommand command) {
-        return respondToJobOfferUseCase.respond(id, command);
+        return respondToJobOfferUseCase.respond(JobOfferId.of(id), command);
     }
 }

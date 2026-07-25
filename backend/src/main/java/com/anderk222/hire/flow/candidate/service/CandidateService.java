@@ -1,6 +1,7 @@
 package com.anderk222.hire.flow.candidate.service;
 
 import com.anderk222.hire.flow.candidate.domain.CandidateRepository;
+import com.anderk222.hire.flow.candidate.domain.model.CandidateId;
 import com.anderk222.hire.flow.candidate.usecase.GetCandidateUseCase;
 import com.anderk222.hire.flow.candidate.usecase.RegisterCandidateUseCase;
 import com.anderk222.hire.flow.candidate.usecase.dto.command.RegisterCandidateCommand;
@@ -21,7 +22,7 @@ public class CandidateService implements RegisterCandidateUseCase, GetCandidateU
     }
 
     @Override
-    public CandidateResponse getById(Long id) {
+    public CandidateResponse getById(CandidateId id) {
         // TODO: candidateRepository.findById(id) o lanzar ResourceNotFoundException, mapear a response.
         throw new UnsupportedOperationException("TODO: implement getById use case");
     }

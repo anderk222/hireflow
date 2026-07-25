@@ -1,11 +1,13 @@
 package com.anderk222.hire.flow.candidacy.web;
 
+import com.anderk222.hire.flow.candidacy.domain.model.CandidacyId;
 import com.anderk222.hire.flow.candidacy.usecase.ApplyToVacancyUseCase;
 import com.anderk222.hire.flow.candidacy.usecase.GetCandidacyUseCase;
 import com.anderk222.hire.flow.candidacy.usecase.ReviewCandidacyUseCase;
 import com.anderk222.hire.flow.candidacy.usecase.dto.command.ApplyToVacancyCommand;
 import com.anderk222.hire.flow.candidacy.usecase.dto.command.ReviewDecisionCommand;
 import com.anderk222.hire.flow.candidacy.usecase.dto.response.CandidacyResponse;
+import com.anderk222.hire.flow.vacancy.domain.model.VacancyId;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,16 +29,16 @@ public class CandidacyController {
 
     @GetMapping("/{id}")
     public CandidacyResponse getById(@PathVariable Long id) {
-        return getCandidacyUseCase.getById(id);
+        return getCandidacyUseCase.getById(CandidacyId.of(id));
     }
 
     @GetMapping(params = "vacancyId")
     public List<CandidacyResponse> listByVacancy(@RequestParam Long vacancyId) {
-        return reviewCandidacyUseCase.listByVacancy(vacancyId);
+        return reviewCandidacyUseCase.listByVacancy(VacancyId.of(vacancyId));
     }
 
     @PostMapping("/{id}/review")
     public CandidacyResponse review(@PathVariable Long id, @RequestBody ReviewDecisionCommand decision) {
-        return reviewCandidacyUseCase.review(id, decision);
+        return reviewCandidacyUseCase.review(CandidacyId.of(id), decision);
     }
 }

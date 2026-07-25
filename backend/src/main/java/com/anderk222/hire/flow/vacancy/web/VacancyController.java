@@ -1,5 +1,6 @@
 package com.anderk222.hire.flow.vacancy.web;
 
+import com.anderk222.hire.flow.vacancy.domain.model.VacancyId;
 import com.anderk222.hire.flow.vacancy.domain.model.WorkMode;
 import com.anderk222.hire.flow.vacancy.usecase.BrowseVacanciesUseCase;
 import com.anderk222.hire.flow.vacancy.usecase.CloseVacancyUseCase;
@@ -39,7 +40,7 @@ public class VacancyController {
 
     @GetMapping("/{id}")
     public VacancyResponse getById(@PathVariable Long id) {
-        return browseVacanciesUseCase.getById(id);
+        return browseVacanciesUseCase.getById(VacancyId.of(id));
     }
 
     @PostMapping
@@ -49,12 +50,12 @@ public class VacancyController {
 
     @PutMapping("/{id}")
     public VacancyResponse update(@PathVariable Long id, @RequestBody UpdateVacancyCommand command) {
-        return updateVacancyUseCase.update(id, command);
+        return updateVacancyUseCase.update(VacancyId.of(id), command);
     }
 
     @PostMapping("/{id}/close")
     public ResponseEntity<Void> close(@PathVariable Long id) {
-        closeVacancyUseCase.close(id);
+        closeVacancyUseCase.close(VacancyId.of(id));
         return ResponseEntity.noContent().build();
     }
 }

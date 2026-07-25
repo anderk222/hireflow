@@ -2,6 +2,7 @@ package com.anderk222.hire.flow.vacancy.persistence;
 
 import com.anderk222.hire.flow.vacancy.domain.VacancyRepository;
 import com.anderk222.hire.flow.vacancy.domain.model.Vacancy;
+import com.anderk222.hire.flow.vacancy.domain.model.VacancyId;
 import com.anderk222.hire.flow.vacancy.domain.model.VacancyStatus;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -27,8 +28,8 @@ public class VacancyRepositoryAdapter implements VacancyRepository {
     }
 
     @Override
-    public Optional<Vacancy> findById(Long id) {
-        // TODO: jpaRepository.findById(id).map(this::toDomain)
+    public Optional<Vacancy> findById(VacancyId id) {
+        // TODO: jpaRepository.findById(id.value()).map(this::toDomain)
         throw new UnsupportedOperationException("TODO: implement findById");
     }
 

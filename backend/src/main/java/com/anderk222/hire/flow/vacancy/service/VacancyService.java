@@ -1,6 +1,7 @@
 package com.anderk222.hire.flow.vacancy.service;
 
 import com.anderk222.hire.flow.vacancy.domain.VacancyRepository;
+import com.anderk222.hire.flow.vacancy.domain.model.VacancyId;
 import com.anderk222.hire.flow.vacancy.usecase.BrowseVacanciesUseCase;
 import com.anderk222.hire.flow.vacancy.usecase.CloseVacancyUseCase;
 import com.anderk222.hire.flow.vacancy.usecase.PublishVacancyUseCase;
@@ -34,13 +35,13 @@ public class VacancyService implements PublishVacancyUseCase, UpdateVacancyUseCa
     }
 
     @Override
-    public VacancyResponse update(Long id, UpdateVacancyCommand command) {
+    public VacancyResponse update(VacancyId id, UpdateVacancyCommand command) {
         // TODO: cargar vacante, aplicar cambios, guardar y mapear a response.
         throw new UnsupportedOperationException("TODO: implement update use case");
     }
 
     @Override
-    public void close(Long id) {
+    public void close(VacancyId id) {
         // TODO: cargar vacante, llamar vacancy.close(), guardar.
         throw new UnsupportedOperationException("TODO: implement close use case");
     }
@@ -52,7 +53,7 @@ public class VacancyService implements PublishVacancyUseCase, UpdateVacancyUseCa
     }
 
     @Override
-    public VacancyResponse getById(Long id) {
+    public VacancyResponse getById(VacancyId id) {
         // TODO: vacancyRepository.findById(id) o lanzar ResourceNotFoundException, mapear a response.
         throw new UnsupportedOperationException("TODO: implement getById use case");
     }

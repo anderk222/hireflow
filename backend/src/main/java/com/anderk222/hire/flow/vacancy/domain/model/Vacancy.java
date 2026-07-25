@@ -18,7 +18,7 @@ import java.util.List;
 @Builder
 public class Vacancy {
 
-    private Long id;
+    private VacancyId id;
     private String title;
     private String description;
     private List<String> requirements;
